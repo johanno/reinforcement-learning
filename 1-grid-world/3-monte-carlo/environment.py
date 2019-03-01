@@ -54,6 +54,27 @@ class Env(tk.Tk):
 
         return rectangle, triangle, circle
 
+    
+    def text_value(self, row, col, contents, font='Helvetica', size=12,
+                   style='normal', anchor="nw"):
+        origin_x, origin_y = 85, 70
+        x, y = origin_y + (UNIT * col), origin_x + (UNIT * row)
+        font = (font, str(size), style)
+        text = self.canvas.create_text(x, y, fill="black", text=contents,
+                                       font=font, anchor=anchor)
+        return self.texts.append(text)
+        
+    def print_all_values(self, table):
+        for i in self.texts:
+            self.canvas.delete(i)
+        self.texts.clear()
+        for x in range(HEIGHT):
+            for y in range(WIDTH):
+                state = [x, y]
+                if str(state) in table.keys():
+                    temp = table[str(state)]
+                    self.text_value(y, x, round(temp, 2))
+
     @staticmethod
     def coords_to_state(coords):
         x = int((coords[0] - 50) / 100)

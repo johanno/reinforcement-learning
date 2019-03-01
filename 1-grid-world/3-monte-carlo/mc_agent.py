@@ -102,6 +102,8 @@ if __name__ == "__main__":
 
             # get next action
             action = agent.get_action(next_state)
+            
+            env.print_all_values(agent.value_table)
 
             # at the end of each episode, update the q function table
             if done:
